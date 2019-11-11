@@ -1,0 +1,3 @@
+git+https://git@github.com/equinor/fmu-ensemble.git@master
+git+https://git@github.com/equinor/libecl.git@master
+git+https://git@github.com/equinor/xtgeo.git@master

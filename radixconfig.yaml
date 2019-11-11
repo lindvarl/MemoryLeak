@@ -1,0 +1,21 @@
+apiVersion: radix.equinor.com/v1
+kind: RadixApplication
+metadata:
+    name: ml
+spec:
+    environments:
+        - name: production
+          build:
+              from: master
+    components:
+        - name: ml-api
+          src: .
+          ports:
+              - name: http
+                port: 5000
+          publicPort: http
+          environmentConfig:
+              - environment: production
+    dnsAppAlias:
+        environment: production
+        component: ml-api
