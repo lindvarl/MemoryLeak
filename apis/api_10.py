@@ -17,16 +17,16 @@ service = Service()
 
 @api.route('/thread')
 class Endpoint(Resource):
-    """Test 9 thread"""
+    """Test 10 thread"""
 
-    @api.doc('Test 9')
+    @api.doc('Test 10')
     def get(self):
         number_of_files = 100
 
         bs = service.get_blobe_as_streams_thread(number_of_files)
-        #result = service.get_file_streams_as_regularsurfaces_thread(bs)
-        l = len(bs)
-        #result = None
+        result = service.get_file_streams_as_regularsurfaces_thread(bs)
+        l = len(result)
+        del result
         del bs
         gc.collect()
 
@@ -39,17 +39,17 @@ class Endpoint(Resource):
 
 @api.route('/nothread')
 class Endpoint(Resource):
-    """Test 9 no thread"""
+    """Test 10 no thread"""
 
-    @api.doc('Test 9')
+    @api.doc('Test 10')
     def get(self):
         number_of_files = 100
 
         bs = service.get_blobe_as_streams(number_of_files)
-        #result = service.get_blob_streams_as_regularsurfaces(bs)
+        result = service.get_blob_streams_as_regularsurfaces(bs)
 
-        l = len(bs)
-        #result = None
+        l = len(result)
+        del result
         del bs
         gc.collect()
 
