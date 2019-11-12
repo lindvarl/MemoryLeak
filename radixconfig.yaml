@@ -16,6 +16,14 @@ spec:
           publicPort: http
           environmentConfig:
               - environment: production
+                replicas: 1
+                resources:
+                  requests:
+                    memory: "512Mi"
+                    cpu: "800m"
+                  limits:
+                    memory: "20Gi"
+                    cpu: "10000m"
     dnsAppAlias:
         environment: production
         component: ml-api
