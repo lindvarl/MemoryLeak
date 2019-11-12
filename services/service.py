@@ -189,27 +189,27 @@ class Service:
                 blob_to_stream_futures = {thread_executor.submit(self.blob_service.get_blob_to_stream, i): i for i in range(0, number_of_thread)}
 
                 i = 0
-                for future in concurrent.futures.as_completed(blob_to_stream_futures):
+                for blob_to_stream_future in concurrent.futures.as_completed(blob_to_stream_futures):
                     try:
                         i = i+1
-                        file_stream = future.result()
-                        del blob_to_stream_futures[future]
-                        del future
+                        file_stream = blob_to_stream_future.result()
+                        del blob_to_stream_futures[blob_to_stream_future]
+                        del blob_to_stream_future
                     except Exception as exc:
-                        logger.error(f'get_blob_to_stream file_name {future}, generated an exception: {exc}')
+                        logger.error(f'get_blob_to_stream generated an exception: {exc}')
                     else:
                         regular_surface_futures[process_executor.submit(self.get_RegularSurface, file_stream)] = i
 
 
             del blob_to_stream_futures
             surfs = []
-            for future in concurrent.futures.as_completed(regular_surface_futures):
+            for regular_surface_future in concurrent.futures.as_completed(regular_surface_futures):
                 try:
-                    surf = future.result()
-                    del regular_surface_futures[future]
-                    del future
+                    surf = regular_surface_future.result()
+                    del regular_surface_futures[regular_surface_future]
+                    del regular_surface_future
                 except Exception as exc:
-                    logger.error(f'RegularSurface: {future} generated an exception: {exc}')
+                    logger.error(f'RegularSurface gnerated an exception: {exc}')
                 else:
                     surfs.append(surf)
 

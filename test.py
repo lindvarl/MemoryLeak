@@ -32,9 +32,9 @@ if __name__ == '__main__':
         #print(get_json(url+'api/test6/nothread'))
         #print(get_json(url+'api/test6/thread'))
         #get_json(url+'api/test7/thread')
-        #get_json(url + 'api/test8/thread')
+        get_json(url + 'api/test8/thread')
         #get_json(url + 'api/test9/nothread') # OK
         #get_json(url + 'api/test9/thread') # 0K
 
-        #get_json(url + 'api/test10/nothread')
-        get_json(url + 'api/test10/thread')
+        #get_json(url + 'api/test10/nothread') # Ok
+        #get_json(url + 'api/test10/thread') #OK
