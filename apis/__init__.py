@@ -8,6 +8,7 @@ from .api_5 import api as a5
 from .api_6 import api as a6
 from .api_7 import api as a7
 from .api_8 import api as a8
+from .api_9 import api as a9
 
 api = Api()
 api.add_namespace(ok, path='/api/testok')
@@ -19,3 +20,4 @@ api.add_namespace(a5, path='/api/test5')
 api.add_namespace(a6, path='/api/test6')
 api.add_namespace(a7, path='/api/test7')
 api.add_namespace(a8, path='/api/test8')
+api.add_namespace(a9, path='/api/test9')

@@ -27,12 +27,40 @@ class Service:
 
         return streams
 
+    def get_blobe_as_streams(self, number_of_thread):
+        streams = []
+
+        for i in range(0, number_of_thread):
+            file_stream = self.blob_service.get_blob_to_stream(i)
+            streams.append(file_stream)
+
+        return streams
+
     def get_files_as_streams_thread(self, number_of_thread):
 
         streams = []
         with concurrent.futures.ThreadPoolExecutor(max_workers=number_of_thread) as executor:
 
             futures = {executor.submit(self.get_file_as_stream, i): i for i in range(0, number_of_thread)}
+            i = 0
+            for future in concurrent.futures.as_completed(futures):
+                i = i + 1
+                try:
+                    file_stream = future.result()
+                    del futures[future]
+                    del future
+                except Exception as exc:
+                    logger.error(f'get_files_as_streams_thread {future}, generated an exception: {exc}')
+                else:
+                    streams.append(file_stream)
+        return streams
+
+    def get_blobe_as_streams_thread(self, number_of_thread):
+
+        streams = []
+        with concurrent.futures.ThreadPoolExecutor(max_workers=number_of_thread) as executor:
+
+            futures = {executor.submit(self.blob_service.get_blob_to_stream, i): i for i in range(0, number_of_thread)}
             i = 0
             for future in concurrent.futures.as_completed(futures):
                 i = i + 1
@@ -77,7 +105,7 @@ class Service:
 
         return bytes_list
 
-    def get_blob_streams_as_regularsurfaces_thread(self, blob_streams: list):
+    def get_file_streams_as_regularsurfaces_thread(self, blob_streams: list):
 
         surfs = []
         max_workers=os.cpu_count()
@@ -96,6 +124,7 @@ class Service:
         blob_streams = None
         futures = None
         return surfs
+
 
     def get_blob_streams_as_regularsurfaces(self, blob_streams: list):
 

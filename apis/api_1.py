@@ -34,18 +34,8 @@ class Endpoint(Resource):
 
         data = ObjDict()
         data.number_of_thread = l
-        #data.virtual_memory = psutil.virtual_memory()
         data.cpu_count = os.cpu_count()
-        #data.tracemalloc = tracemalloc.take_snapshot().traces._traces[:10]
         data.gc_get_count = list(gc.get_count())
-        #data.gc_garbage = gc.garbage
-
-        #snapshot = tracemalloc.take_snapshot()
-        #top_stats = snapshot.statistics('lineno')
-
-        print("[ Top 10 ]")
-        #for stat in top_stats[:10]:
-        #    print(stat)
 
         return jsonify(data)
 

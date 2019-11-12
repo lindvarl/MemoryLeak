@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 from flask_restplus import Namespace, Resource
 
-api = Namespace('Test6', description='Test 6')
+api = Namespace('Test9', description='Test 9')
 
 service = Service()
 
@@ -19,15 +19,15 @@ service = Service()
 class Endpoint(Resource):
     """Test 6 thread"""
 
-    @api.doc('Test 6')
+    @api.doc('Test 9')
     def get(self):
         number_of_files = 100
 
-        bs = service.get_files_as_streams_thread(number_of_files)
-        result = service.get_file_streams_as_regularsurfaces_thread(bs)
-        l = len(result)
-        result = None
-        bs = None
+        bs = service.get_blobe_as_streams_thread(number_of_files)
+        #result = service.get_file_streams_as_regularsurfaces_thread(bs)
+        l = len(bs)
+        #result = None
+        del bs
         gc.collect()
 
         data = ObjDict()
@@ -39,18 +39,18 @@ class Endpoint(Resource):
 
 @api.route('/nothread')
 class Endpoint(Resource):
-    """Test 6 no thread"""
+    """Test 9 no thread"""
 
-    @api.doc('Test 6')
+    @api.doc('Test 9')
     def get(self):
-        number_of_files = 100
+        number_of_files = 10
 
-        bs = service.get_files_as_streams(number_of_files)
-        result = service.get_blob_streams_as_regularsurfaces(bs)
+        bs = service.get_blobe_as_streams(number_of_files)
+        #result = service.get_blob_streams_as_regularsurfaces(bs)
 
-        l = len(result)
-        result = None
-        bs = None
+        l = len(bs)
+        #result = None
+        del bs
         gc.collect()
 
         data = ObjDict()
