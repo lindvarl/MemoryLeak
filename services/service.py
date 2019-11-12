@@ -148,7 +148,7 @@ class Service:
     def get_file_as_stream(self, i):
         logger.debug(f'get_file_as_stream {i} start')
 
-        file = 'files/1.gri'
+        file = './files/1.gri'
         with open(file, "rb") as fin:
             stream = io.BytesIO(fin.read())
 
@@ -164,7 +164,7 @@ class Service:
     def get_file_as_bytes(self, i):
         logger.debug(f'get_file_as_bytes {i} start')
 
-        file = 'files/1.gri'
+        file = './files/1.gri'
         with open(file, "rb") as fin:
             bytes = fin.read()
 

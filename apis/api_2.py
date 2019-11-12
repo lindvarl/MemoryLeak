@@ -20,7 +20,7 @@ api = Namespace('Test2', description='Test 2')
 def get_file_as_bytes(i):
     logger.debug(f'get_file_as_bytes {i} start')
 
-    file = 'files/1.gri'
+    file = './files/1.gri'
     with open(file, "rb") as fin:
         bytes = fin.read()
 

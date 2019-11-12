@@ -13,7 +13,7 @@ class Endpoint(Resource):
 
         result = []
         for i in range(0, number_of_files):
-            file = 'files/1.gri'
+            file = './files/1.gri'
             with open(file, "rb") as fin:
                 result.append(fin.read())
 

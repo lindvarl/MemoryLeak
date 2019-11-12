@@ -4,7 +4,7 @@ api = Namespace('Test5', description='Test 5')
 
 def get_file_as_bytes(i):
 
-    file = 'files/1.gri'
+    file = './files/1.gri'
     with open(file, "rb") as fin:
         bytes = fin.read()
 
