@@ -34,4 +34,7 @@ if __name__ == '__main__':
         #get_json(url+'api/test7/thread')
         #get_json(url + 'api/test8/thread')
         #get_json(url + 'api/test9/nothread') # OK
-        get_json(url + 'api/test9/thread')
+        #get_json(url + 'api/test9/thread') # 0K
+
+        #get_json(url + 'api/test10/nothread')
+        get_json(url + 'api/test10/thread')

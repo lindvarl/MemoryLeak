@@ -92,7 +92,7 @@ class Service:
                 else:
                     bytes_list.append(file_bytes)
 
-            futures = None
+            del futures
 
         return bytes_list
 
@@ -116,13 +116,15 @@ class Service:
             for future in concurrent.futures.as_completed(futures):
                 try:
                     surf = future.result()
+                    del futures[future]
+                    del future
                 except Exception as exc:
                     logger.error(f'get_streams_as_regularsurfaces: {future} generated an exception: {exc}')
                 else:
                     surfs.append(surf)
 
-        blob_streams = None
-        futures = None
+        del blob_streams
+        del futures
         return surfs
 
 
