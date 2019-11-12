@@ -17,6 +17,7 @@ class Service:
         logger.debug(f'Service Start')
         self.blob_service = BlobService()
 
+
     def get_files_as_streams(self, number_of_thread):
         streams = []
 

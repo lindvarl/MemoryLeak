@@ -30,11 +30,12 @@ class BlobService:
     def __init__(self, account_name=os.environ['DB_ACCOUNT_NAME'],
                  account_key= os.environ['DB_ACCOUNT_KEY'],):
 
-        sess = requests.Session()
-        adapter = requests.adapters.HTTPAdapter(pool_connections=400, pool_maxsize=400)
-        sess.mount('https://', adapter)
+        #sess = requests.Session()
+        #adapter = requests.adapters.HTTPAdapter(pool_connections=100, pool_maxsize=100)
+        #sess.mount('https://', adapter)
+        #self.blob_service = BlockBlobService(account_name=account_name, account_key=account_key, request_session=sess)
 
-        self.blob_service = BlockBlobService(account_name=account_name, account_key=account_key, request_session=sess)
+        self.blob_service = BlockBlobService(account_name=account_name, account_key=account_key)
         self.account_name = account_name
         self.account_key = account_key
 
