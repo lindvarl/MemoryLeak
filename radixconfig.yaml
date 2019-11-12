@@ -24,6 +24,10 @@ spec:
                   limits:
                     memory: "20Gi"
                     cpu: "10000m"
+                variables:
+                  DB_ACCOUNT_NAME: "rmrcdev"
+          secrets:
+              - DB_ACCOUNT_KEY
     dnsAppAlias:
         environment: production
         component: ml-api
