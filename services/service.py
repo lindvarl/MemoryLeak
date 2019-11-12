@@ -4,6 +4,7 @@ import os
 import concurrent.futures
 import bounded_pool_executor
 #from xtgeo import RegularSurface, Surfaces
+from services.blob_service import BlobService
 
 logger = logging.getLogger(__name__)
 
@@ -14,6 +15,7 @@ class Service:
     def __init__(self):
 
         logger.debug(f'Service Start')
+        self.blob_service = BlobService()
 
     def get_files_as_streams(self, number_of_thread):
         streams = []
@@ -104,7 +106,7 @@ class Service:
         blob_streams = None
         return surfs
 
-    def get_blob_files_as_regularsurfaces(self, number_of_thread):
+    def get_files_as_regularsurfaces(self, number_of_thread):
 
         logger.info(f'cpu_count: {os.cpu_count()}')
 
@@ -143,6 +145,44 @@ class Service:
             del regular_surface_futures
         return surfs
 
+    def get_blob_files_as_regularsurfaces(self, number_of_thread):
+
+        logger.info(f'cpu_count: {os.cpu_count()}')
+
+        with bounded_pool_executor.BoundedProcessPoolExecutor(os.cpu_count()) as process_executor:
+            regular_surface_futures = {}
+
+            with bounded_pool_executor.BoundedThreadPoolExecutor(max_workers=number_of_thread) as thread_executor:
+
+                blob_to_stream_futures = {thread_executor.submit(self.blob_service.get_blob_to_stream, i): i for i in range(0, number_of_thread)}
+
+                i = 0
+                for future in concurrent.futures.as_completed(blob_to_stream_futures):
+                    try:
+                        i = i+1
+                        file_stream = future.result()
+                        del blob_to_stream_futures[future]
+                        del future
+                    except Exception as exc:
+                        logger.error(f'get_blob_to_stream file_name {future}, generated an exception: {exc}')
+                    else:
+                        regular_surface_futures[process_executor.submit(self.get_RegularSurface, file_stream)] = i
+
+
+            del blob_to_stream_futures
+            surfs = []
+            for future in concurrent.futures.as_completed(regular_surface_futures):
+                try:
+                    surf = future.result()
+                    del regular_surface_futures[future]
+                    del future
+                except Exception as exc:
+                    logger.error(f'RegularSurface: {future} generated an exception: {exc}')
+                else:
+                    surfs.append(surf)
+
+            del regular_surface_futures
+        return surfs
 
 
     def get_file_as_stream(self, i):

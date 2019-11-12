@@ -10,23 +10,23 @@ logger = logging.getLogger(__name__)
 
 from flask_restplus import Namespace, Resource
 
-api = Namespace('Test7', description='Test 7')
+api = Namespace('Test8', description='Test 8')
 
 service = Service()
 
 
 @api.route('/thread')
 class Endpoint(Resource):
-    """Test 7 thread"""
+    """Test 8 thread"""
 
-    @api.doc('Test 7')
+    @api.doc('Test 8')
     def get(self):
         number_of_files = 100
 
-        result = service.get_files_as_regularsurfaces(number_of_files)
+        result = service.get_blob_files_as_regularsurfaces(number_of_files)
 
         l = len(result)
-        result = None
+        del result
         gc.collect()
 
         data = ObjDict()

@@ -1,4 +1,5 @@
 flask-restplus
+azure-storage-blob==2.1.0
 objdict
 pandas
 pyjwt
