@@ -5,7 +5,7 @@ import logging
 from objdict import ObjDict
 from services.service import Service
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 from flask_restplus import Namespace, Resource
@@ -21,6 +21,7 @@ class Endpoint(Resource):
 
     @api.doc('Test 8')
     def get(self):
+        logger.info("****************************************")
         number_of_files = 100
 
         result = service.get_blob_files_as_regularsurfaces(number_of_files)

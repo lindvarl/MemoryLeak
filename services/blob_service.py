@@ -31,7 +31,7 @@ class BlobService:
                  account_key= os.environ['DB_ACCOUNT_KEY'],):
 
         sess = requests.Session()
-        adapter = requests.adapters.HTTPAdapter(pool_connections=100, pool_maxsize=100)
+        adapter = requests.adapters.HTTPAdapter(pool_connections=400, pool_maxsize=400)
         sess.mount('https://', adapter)
         self.blob_service = BlockBlobService(account_name=account_name, account_key=account_key, request_session=sess)
 

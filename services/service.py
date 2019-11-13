@@ -191,6 +191,7 @@ class Service:
                 i = 0
                 for blob_to_stream_future in concurrent.futures.as_completed(blob_to_stream_futures):
                     try:
+                        logger.info(f'blob_to_stream_future.result(): {i}')
                         i = i+1
                         file_stream = blob_to_stream_future.result()
                         del blob_to_stream_futures[blob_to_stream_future]
@@ -201,19 +202,23 @@ class Service:
                         regular_surface_futures[process_executor.submit(self.get_RegularSurface, file_stream)] = i
 
 
-            del blob_to_stream_futures
+            #del blob_to_stream_futures
             surfs = []
+            logger.info(f'Before regular_surface_futures completed')
             for regular_surface_future in concurrent.futures.as_completed(regular_surface_futures):
                 try:
                     surf = regular_surface_future.result()
+                    logger.info(f'regular_surface_future.result()')
                     del regular_surface_futures[regular_surface_future]
                     del regular_surface_future
                 except Exception as exc:
                     logger.error(f'RegularSurface gnerated an exception: {exc}')
                 else:
                     surfs.append(surf)
-
-            del regular_surface_futures
+                    logger.info(f'regular_surface_futures len {len(regular_surface_futures)}')
+            #logger.info(f'Befor del regular_surface_futures')
+            #del regular_surface_futures
+        logger.info(f'defor return surfs')
         return surfs
 
 

@@ -16,8 +16,8 @@ def get_json(url):
 
 
 if __name__ == '__main__':
-    url = 'https://ml-api-ml-production.playground.radix.equinor.com/'
-    #url = 'http://localhost:5000/'
+    #url = 'https://ml-api-ml-production.playground.radix.equinor.com/'
+    url = 'http://localhost:5000/'
     for i in range(0, 10):
         print(f'*************{i}******************')
         #print(get_json(url+'api/testok/'))
@@ -32,7 +32,7 @@ if __name__ == '__main__':
         #print(get_json(url+'api/test6/nothread'))
         #print(get_json(url+'api/test6/thread'))
         #get_json(url+'api/test7/thread')
-        get_json(url + 'api/test8/thread')
+        get_json(url + 'api/test8/thread') # Bang
         #get_json(url + 'api/test9/nothread') # OK
         #get_json(url + 'api/test9/thread') # 0K
 
